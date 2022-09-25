@@ -18,21 +18,74 @@ Output:
 
 # import libraries
 import sys
+import pandas as pd
+import numpy as np
+from sqlalchemy import create_engine
 
 #%%
-# load messages dataset
+
 def load_data(messages_filepath, categories_filepath):
-    # messages = 
-    # messages.head()
-    pass
+    """ 
+    load messages and category datasets and merge them on ID, removes the original language (keep English onl)
+    input: location of both CV files
+    output: dataframe with merged data
+    """ 
+    # Load messages and drop the original language column
+    messages = pd.read_csv(messages_filepath)
+    messages.drop(columns = "original", inplace=True) # Don't need the original language
+
+    # Load categories and construct meaningful column names (based on the first row)
+    categories = pd.read_csv(categories_filepath)
+    
+    # Merge messages and categories based on id
+    df = pd.merge(messages, categories, on="id", how="inner") 
+    return (df)
 
 
 def clean_data(df):
-    pass
+    """ 
+    Remove duplicate rows
+    input: dataframe
+    output: dataframe
+    """ 
+
+    categories = df['categories'].str.split(';', expand=True)
+
+    firstrow = categories.head(1).values[0] #retain the first row of the categories to construct column names
+    
+    def strip_last_2(s):
+        return s[:-2]
+
+    category_colnames = np.array(list(map(strip_last_2, firstrow)))
+    categories.columns = category_colnames
+
+    # set each category value to be the last character of the string
+    for column in categories:
+        categories[column] = categories[column].str[-1]
+    
+    # convert column from string to numeric
+    categories[column] = categories[column].astype(int)
+    
+    # drop original column "categories" as now split
+    df.drop(columns="categories", inplace=True)
+
+    # Concanate the split categories with the original dataframe
+    df = pd.concat([df, categories], axis=1)
+
+    df = df.drop_duplicates()
+
+    return(df)
 
 
 def save_data(df, database_filename):
-    pass  
+    """ 
+    saves dataframe to specified SQLite database (table: DisasterMessages)
+    input: dataframe
+    output: none
+    """ 
+    engine = create_engine('sqlite:///'+database_filename)
+    df.to_sql('DisasterMessages', engine, index=False, if_exists='replace')
+    return
 
 
 def main():
