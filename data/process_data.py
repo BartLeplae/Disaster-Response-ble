@@ -63,8 +63,8 @@ def clean_data(df):
     for column in categories:
         categories[column] = categories[column].str[-1]
     
-    # convert column from string to numeric
-    categories[column] = categories[column].astype(int)
+        # convert column from string to numeric
+        categories[column] = categories[column].astype(int)
     
     # drop original column "categories" as now split
     df.drop(columns="categories", inplace=True)
