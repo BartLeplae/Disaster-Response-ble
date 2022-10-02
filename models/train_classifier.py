@@ -62,7 +62,7 @@ def load_data(database_filepath):
 
     # Load Y: 36 category columns mu
     N_CATEGORIES = 36 #number of category columns
-    df_y = df.iloc[:,-N_CATEGORIES-3:-3]
+    df_y = df.iloc[:,-N_CATEGORIES-4:-4]
     df_y_sufficient_data =  df_y.loc[:,(df_y.sum(axis=0) > 50)] #only retain those columns that have more than 50 positive values
     Y = df_y_sufficient_data.values
     N_CATEGORIES = df_y_sufficient_data.shape[1]
