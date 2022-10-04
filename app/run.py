@@ -38,6 +38,7 @@ from sqlalchemy import create_engine
 
 # Initiate Flask application
 app = Flask(__name__)
+app.secret_key = "whatever_blabla"
 
 # Function to tokenize the messages entered in the Webpage (input to the ML model)
 def tokenize(text):
