@@ -53,12 +53,12 @@ def tokenize(text):
     return clean_tokens
 
 # load message training data
-engine = create_engine('sqlite:///../data/DisasterResponse.db')
+engine = create_engine('sqlite:///./data/DisasterResponse.db')
 df = pd.read_sql_table('DisasterMessages', engine)
 df["message_length"] = df["message"].str.len()
 
 # load trained model
-model = joblib.load("../models/DisasterResponse.pkl")
+model = joblib.load("./models/DisasterResponse.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
