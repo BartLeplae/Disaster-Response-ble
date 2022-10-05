@@ -32,8 +32,6 @@ def index():
     ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)] 
 
     # Convert the plotly figures to JSON for javascript in html template
-    figuresJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
+    graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('master.html',
-                           ids=ids,
-                           figuresJSON=figuresJSON)
+    return render_template('master.html', ids=ids, graphJSON=graphJSON)
