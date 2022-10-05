@@ -19,13 +19,20 @@ df["message_length"] = df["message"].str.len()
 @app.route('/index')
 def index():
 
-    figures = return_figures()
+    # Create 6 graphs
+    graphs = [None]*1
+
+    # Graph 1: Correlation matrix to depict relationship between message categories
+    correlation_matrix = df.corr()
+    graphs[0] = px.imshow(correlation_matrix)
+
+    # figures = return_figures()
 
     # plot ids for the html id tag
-    ids = ['figure-{}'.format(i) for i, _ in enumerate(figures)]
+    ids = ['figure-{}'.format(i) for i, _ in enumerate(graphs)]
 
     # Convert the plotly figures to JSON for javascript in html template
-    figuresJSON = json.dumps(figures, cls=plotly.utils.PlotlyJSONEncoder)
+    figuresJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('index.html',
                            ids=ids,
