@@ -6,9 +6,23 @@ import pandas as pd
 import joblib
 import plotly.express as px
 from sqlalchemy import create_engine
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
 
 app = Flask(__name__)
 app.secret_key = "whatever_blabla"
+
+# Function to tokenize the messages entered in the Webpage (input to the ML model)
+def tokenize(text):
+    tokens = word_tokenize(text)
+    lemmatizer = WordNetLemmatizer()
+
+    clean_tokens = []
+    for tok in tokens:
+        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+        clean_tokens.append(clean_tok)
+
+    return clean_tokens
 
 # load message training data
 engine = create_engine('sqlite:///./data/DisasterResponse.db')
