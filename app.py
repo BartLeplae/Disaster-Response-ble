@@ -29,7 +29,7 @@ def index():
     # figures = return_figures()
 
     # plot ids for the html id tag
-    ids = ['figure-{}'.format(i) for i, _ in enumerate(graphs)]
+    ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)] 
 
     # Convert the plotly figures to JSON for javascript in html template
     figuresJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
