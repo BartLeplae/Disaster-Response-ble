@@ -30,7 +30,7 @@ df = pd.read_sql_table('DisasterMessages', engine)
 df["message_length"] = df["message"].str.len()
 
 # load trained model
-model = joblib.load("./models/DisasterResponse.pkl")
+# model = joblib.load("./models/DisasterResponse.pkl")
 
 @app.route('/')
 @app.route('/index')
