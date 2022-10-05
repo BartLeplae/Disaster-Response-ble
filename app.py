@@ -77,38 +77,3 @@ def index():
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('master.html', ids=ids, graphJSON=graphJSON)
-
-# web page that handles user query and displays model results
-@app.route('/go')
-def go():
-    # save user input in query
-    query = request.args.get('query', '') 
-    # Transform the message length
-    # mess_length = stats.percentileofscore(df["message_length"],len(query))  Remove as not running on Heroku
-    mess_length = 0.2 # Replace with constant (short sentence)
-    # Check for availability of Question and Exclamation mark
-    if '\?' in query:
-        question_mark = 1
-    else:
-        question_mark = 0
-
-    if '\!' in query:
-        exclamation_mark = 1
-    else:
-        exclamation_mark = 0 
-
-    # Create dataframe to serve as input to the ML model
-    X_query = pd.DataFrame(data = [[query,"direct",mess_length,question_mark,exclamation_mark]], columns=["message","genre","len","question_mark","exclamation_mark"])
-
-    # use model to predict classification for query
-    # classification_labels = model.predict(X_query)[0] 
-    # classification_labels = model.predict(query)
-    # classification_results = dict(zip(df.columns[4:], classification_labels))
-    
-    classification_results = "No Categorization"
-    # This will render the go.html 
-    return render_template(
-        'go.html',
-        query=query,
-        classification_result=classification_results
-    )
