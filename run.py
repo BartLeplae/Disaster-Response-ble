@@ -24,7 +24,7 @@ import json
 import plotly
 import pandas as pd
 import joblib
-from scipy import stats
+# from scipy import stats - Remove as not running on Heroku
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
@@ -119,7 +119,8 @@ def go():
     # save user input in query
     query = request.args.get('query', '') 
     # Transform the message length
-    mess_length = stats.percentileofscore(df["message_length"],len(query))
+    # mess_length = stats.percentileofscore(df["message_length"],len(query))  Remove as not running on Heroku
+    mess_length = 0.2 # Replace with constant (short sentence)
     # Check for availability of Question and Exclamation mark
     if '\?' in query:
         question_mark = 1
