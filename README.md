@@ -77,7 +77,7 @@ The last chart shows the number of occurences in the training set ordered by vol
 2. The categories offer, shops, tools, hospitals and missing_people have less than 300 occurences which limits the robustness of the ML model
 
 Categories_occurences_trainingset.png
-![Category_occurences](https:./Categories_occurences_trainingset.png)
+![Category_occurences](https://github.com/BartLeplae/Disaster-Response-ble/blob/main/Categories_occurences_trainingset.png)
 
 ## Licensing, Authors, Acknowledgements
 - Author:Bart Leplae
