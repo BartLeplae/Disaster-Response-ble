@@ -33,10 +33,12 @@ def load_data(messages_filepath, categories_filepath):
     # Load messages and drop the original language column
     messages = pd.read_csv(messages_filepath)
     messages.drop(columns = "original", inplace=True) # Don't need the original language
-
+    messages.drop_duplicates(subset="id", inplace=True)
+    
     # Load categories and construct meaningful column names (based on the first row)
     categories = pd.read_csv(categories_filepath)
-    
+    categories.drop_duplicates(subset="id", inplace=True)
+
     # Merge messages and categories based on id
     df = pd.merge(messages, categories, on="id", how="inner") 
     return (df)
@@ -48,9 +50,8 @@ def clean_data(df):
     input: dataframe
     output: dataframe
     """ 
-
+    
     categories = df['categories'].str.split(';', expand=True)
-
     firstrow = categories.head(1).values[0] #retain the first row of the categories to construct column names
     
     def strip_last_2(s):
@@ -58,6 +59,8 @@ def clean_data(df):
 
     category_colnames = np.array(list(map(strip_last_2, firstrow)))
     categories.columns = category_colnames
+
+    categories['related'] = categories['related'].astype('str').str.replace('2', '1') # combine 2 with 1 to ensure binary categorization
 
     # set each category value to be the last character of the string
     for column in categories:
@@ -69,9 +72,10 @@ def clean_data(df):
     # drop original column "categories" as now split
     df.drop(columns="categories", inplace=True)
 
-    # Concanate the split categories with the original dataframe
+    # Concatenate the split categories with the original dataframe, remove na's, make integer and drop duplicates
     df = pd.concat([df, categories], axis=1)
-
+    df = df.dropna()
+    df = df.convert_dtypes()
     df = df.drop_duplicates()
 
     return(df)
