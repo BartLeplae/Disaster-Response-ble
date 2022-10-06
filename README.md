@@ -76,6 +76,8 @@ The last chart shows the number of occurences in the training set ordered by vol
 1. The child_alone category has no occurences (has been excluded from the ML model to avoid modelling failures)
 2. The categories offer, shops, tools, hospitals and missing_people have less than 300 occurences which limits the robustness of the ML model
 
+Categories_occurences_trainingset.png
+![Category_occurences](https:./Categories_occurences_trainingset.png)
 
 ## Licensing, Authors, Acknowledgements
 - Author:Bart Leplae
