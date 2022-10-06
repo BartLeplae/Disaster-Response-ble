@@ -42,7 +42,7 @@ from sklearn.preprocessing import QuantileTransformer
 import pickle
 
 def load_data(database_filepath):
-    # load data from database: all records from DisasterMessages table to df DataFrame
+    # load data from the specified database: all records from DisasterMessages table to df DataFrame
     database_url = "sqlite:///"+database_filepath
     engine = create_engine(database_url)
     connection = engine.connect()
@@ -72,7 +72,10 @@ def load_data(database_filepath):
     return(X, Y, category_names)
 
 def tokenize(text):
-    # Bring to lowercase, remove stopwords and punctuation
+    """ tokenize, convert text to lowercase, remove stopwords and punctuation and lemmatize
+    Input: text string
+    Returns: list of tokens
+    """
     stop = set(stopwords.words('english') + list(string.punctuation))
     nltk_tokens = nltk.word_tokenize(text.lower())
     tokens = [w for w in nltk_tokens if not w in stop]
@@ -81,11 +84,13 @@ def tokenize(text):
     return(tokens)
 
 def build_model():
-    # Define the model:
-    # Input: "Message", "Genre", "message_length" (quantile transformed), "question_mark", "exclamation_mark"
-    # - apply tfidf to 'message'
-    # - apply onehot encoding for 'genre'
-    # Apply Logistic Regression against each of the categories
+    """ define the model:
+    Input: "Message", "Genre", "message_length" (quantile transformed), "question_mark", "exclamation_mark"
+    - apply tfidf to 'message'
+    - apply onehot encoding for 'genre'
+    - apply Logistic Regression against each of the categories
+    Returns: model with optimized min_df (tfidf) and C (Logistic Regression)
+    """
  
     tfidf_vectorizer = TfidfVectorizer(tokenizer=tokenize, strip_accents="unicode", sublinear_tf=True)
     onehot = OneHotEncoder(drop="first")
@@ -106,6 +111,15 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    """ evaluate the model:
+    Input:
+    - test set: X_test, Y_test
+    - category_names: list with all of the available categories
+    Prints:
+    - optimal model parameters as identified by GridSearchCV
+    - classification result per category (Y_test versus Y_pred) based on weighted average
+    - overall classification result (min, max, ... based on describe())
+    """
     # test the model against the test set
     Y_pred = model.predict(X_test)
 
@@ -130,11 +144,22 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """ save the model to the specified pickle file:
+    Input:
+    - model
+    - path+filename of pickle file
+    """
     pickle.dump(model, open(model_filepath, 'wb'))
     return
 
 
 def main():
+    """ Check that 2 input parameters have been provided and 
+    execute the steps of the model creation, evaluation and storing process
+    Input Parameters:
+    - database containing the messages and categorizations
+    - path+filename of the pickle file to be created
+    """
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))

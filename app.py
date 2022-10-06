@@ -1,37 +1,38 @@
+""" app:
 
+    Creates webpage with:
+    - Overview of training dataset by means of various plots 
+    
+    to enable deployment and run in Heroku: 
+        Procfile "web: gunicorn app:app"
+
+Attributes:
+    None
+
+Input:
+    Training Data with messages and classification: 
+        database: "../data/DisasterResponse.db": 
+        table: "DisasterMessages"
+    
+Output:
+    Webpage: https://disaster-response-ble.herokuapp.com/
+"""
 import json, plotly
 from flask import Flask, render_template, request
-from wrangle_data import return_figures
 import pandas as pd
-import joblib
 import plotly.express as px
 from sqlalchemy import create_engine
-from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 
 app = Flask(__name__)
 app.secret_key = "whatever_blabla"
-
-# Function to tokenize the messages entered in the Webpage (input to the ML model)
-def tokenize(text):
-    tokens = word_tokenize(text)
-    lemmatizer = WordNetLemmatizer()
-
-    clean_tokens = []
-    for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
-
-    return clean_tokens
 
 # load message training data
 engine = create_engine('sqlite:///./data/DisasterResponse.db')
 df = pd.read_sql_table('DisasterMessages', engine)
 df["message_length"] = df["message"].str.len()
 
-# load trained model
-# model = joblib.load("./models/DisasterResponse.pkl")
-
+# Create graphs to be displayed in webpage and render to 'master.html'
 @app.route('/')
 @app.route('/index')
 def index():

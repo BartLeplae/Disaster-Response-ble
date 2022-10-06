@@ -43,26 +43,18 @@ from sqlalchemy import create_engine
 app = Flask(__name__)
 app.secret_key = "whatever_blabla"
 
-# Function to tokenize the messages entered in the Webpage (input to the ML model)
+
 def tokenize(text):
-    # Bring to lowercase, remove stopwords and punctuation
+    """ tokenize, convert text to lowercase, remove stopwords and punctuation and lemmatize
+    Input: text string
+    Returns: list of tokens
+    """
     stop = set(stopwords.words('english') + list(string.punctuation))
     nltk_tokens = nltk.word_tokenize(text.lower())
     tokens = [w for w in nltk_tokens if not w in stop]
     lemmatizer = WordNetLemmatizer()
     tokens = [lemmatizer.lemmatize(w) for w in tokens]
     return(tokens)
-
-def tokenize(text):
-    tokens = word_tokenize(text)
-    lemmatizer = WordNetLemmatizer()
-
-    clean_tokens = []
-    for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
-
-    return clean_tokens
 
 # load message training data
 engine = create_engine('sqlite:///../data/DisasterResponse.db')

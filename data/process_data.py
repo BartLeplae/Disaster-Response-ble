@@ -46,7 +46,9 @@ def load_data(messages_filepath, categories_filepath):
 
 def clean_data(df):
     """ 
+    Split the categories from 1 column into separate columns
     Remove duplicate rows
+    Ensure binary classification (limited to value 0 and 1): map value 2 to 1 + make type integer
     input: dataframe
     output: dataframe
     """ 
@@ -93,6 +95,12 @@ def save_data(df, database_filename):
 
 
 def main():
+    """ 
+    Checks and requires for the availabilty of 3 parameters
+    Runs the different steps: loading, cleaning and saving to db
+    parameters: message file, categories file, name of database to be created
+    output: creates and load message data to to the specified database
+    """ 
     if len(sys.argv) == 4:
 
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]
