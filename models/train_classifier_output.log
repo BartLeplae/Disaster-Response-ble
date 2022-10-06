@@ -1,0 +1,54 @@
+Loading data...
+    DATABASE: ../data/DisasterResponse.db
+Building model...
+Training model...
+Evaluating model...
+        clmn__tfidf__min_df: 50
+        mo__estimator__C: 5
+related {'precision': 0.8233069268265514, 'recall': 0.8319327731092437, 'f1-score': 0.8255906524806876, 'support': 5236}
+request {'precision': 0.8975975130207128, 'recall': 0.9027883880825057, 'f1-score': 0.8974906696455854, 'support': 5236}
+offer {'precision': 0.9960053904887186, 'recall': 0.9959893048128342, 'f1-score': 0.9939879867187694, 'support': 5236}
+aid_related {'precision': 0.7777209352754927, 'recall': 0.7784568372803667, 'f1-score': 0.775964595732203, 'support': 5236}
+medical_help {'precision': 0.9114032577530552, 'recall': 0.9268525592055004, 'f1-score': 0.9124689447971702, 'support': 5236}
+medical_products {'precision': 0.9433942168521656, 'recall': 0.9535905271199389, 'f1-score': 0.9443229297987547, 'support': 5236}
+search_and_rescue {'precision': 0.9698319633109017, 'recall': 0.9749809014514896, 'f1-score': 0.9669929657528785, 'support': 5236}
+security {'precision': 0.9736508377877141, 'recall': 0.9807104660045837, 'f1-score': 0.9720573388588051, 'support': 5236}
+military {'precision': 0.9617192342390064, 'recall': 0.9692513368983957, 'f1-score': 0.9629426831400846, 'support': 5236}
+water {'precision': 0.95750569540864, 'recall': 0.9608479755538579, 'f1-score': 0.9581772170967382, 'support': 5236}
+food {'precision': 0.9452150990266237, 'recall': 0.9478609625668449, 'f1-score': 0.9454798513102662, 'support': 5236}
+shelter {'precision': 0.9438489661548567, 'recall': 0.9482429335370511, 'f1-score': 0.943910998943078, 'support': 5236}
+clothing {'precision': 0.9872174191580242, 'recall': 0.9887318563789153, 'f1-score': 0.9871010125566426, 'support': 5236}
+money {'precision': 0.9742469804561622, 'recall': 0.9795645530939648, 'f1-score': 0.9755784391348827, 'support': 5236}
+missing_people {'precision': 0.9872158123056645, 'recall': 0.989877769289534, 'f1-score': 0.986917492131957, 'support': 5236}
+refugees {'precision': 0.9569211463585926, 'recall': 0.9673414820473644, 'f1-score': 0.9582442024645534, 'support': 5236}
+death {'precision': 0.9648882073615747, 'recall': 0.9690603514132926, 'f1-score': 0.9648432386434038, 'support': 5236}
+other_aid {'precision': 0.839213899858865, 'recall': 0.869938884644767, 'f1-score': 0.8408936750942193, 'support': 5236}
+infrastructure_related {'precision': 0.9056936143441333, 'recall': 0.9322001527883881, 'f1-score': 0.9128356050116687, 'support': 5236}
+transport {'precision': 0.9457021446258136, 'recall': 0.9562643239113827, 'f1-score': 0.9427503401387852, 'support': 5236}
+buildings {'precision': 0.952387505804461, 'recall': 0.9593200916730329, 'f1-score': 0.9531681807407243, 'support': 5236}
+electricity {'precision': 0.9717992949856826, 'recall': 0.9782276546982429, 'f1-score': 0.9729357952761835, 'support': 5236}
+tools {'precision': 0.9870539202917425, 'recall': 0.9933155080213903, 'f1-score': 0.9901748151245133, 'support': 5236}
+hospitals {'precision': 0.9850444446749973, 'recall': 0.9887318563789153, 'f1-score': 0.9844329398194813, 'support': 5236}
+shops {'precision': 0.9944920967901016, 'recall': 0.9944614209320092, 'f1-score': 0.9916998216590964, 'support': 5236}
+aid_centers {'precision': 0.9873045757085152, 'recall': 0.9896867838044309, 'f1-score': 0.9852434767781315, 'support': 5236}
+other_infrastructure {'precision': 0.9315012459669398, 'recall': 0.9537815126050421, 'f1-score': 0.9386164311288565, 'support': 5236}
+weather_related {'precision': 0.8747047906839112, 'recall': 0.8773873185637892, 'f1-score': 0.8733240494064621, 'support': 5236}
+floods {'precision': 0.9498283210189304, 'recall': 0.9533995416348358, 'f1-score': 0.9479211944449315, 'support': 5236}
+storm {'precision': 0.9391567143286886, 'recall': 0.9434682964094728, 'f1-score': 0.9399762938638343, 'support': 5236}
+fire {'precision': 0.9865913248913655, 'recall': 0.9894957983193278, 'f1-score': 0.9860427886832125, 'support': 5236}
+earthquake {'precision': 0.9685643076646536, 'recall': 0.9698242933537051, 'f1-score': 0.9687040599542273, 'support': 5236}
+cold {'precision': 0.9811103602280073, 'recall': 0.9835752482811306, 'f1-score': 0.9795263116161189, 'support': 5236}
+other_weather {'precision': 0.9337258795257606, 'recall': 0.9497708174178763, 'f1-score': 0.9359508893429253, 'support': 5236}
+direct_report {'precision': 0.851830953121476, 'recall': 0.8615355233002292, 'f1-score': 0.8502749563644646, 'support': 5236}
+       precision     recall   f1-score  support
+count  35.000000  35.000000  35.000000     35.0
+mean    0.941640   0.948870   0.941901   5236.0
+std     0.052554   0.050215   0.052239      0.0
+min     0.777721   0.778457   0.775965   5236.0
+25%     0.932614   0.945665   0.937284   5236.0
+50%     0.956921   0.960848   0.958177   5236.0
+75%     0.977679   0.982143   0.977552   5236.0
+max     0.996005   0.995989   0.993988   5236.0
+Saving model...
+    MODEL: DisasterResponse.pkl
+Trained model saved!

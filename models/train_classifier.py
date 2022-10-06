@@ -24,7 +24,6 @@ import pandas as pd
 import numpy as np
 import nltk
 import string
-from nltk import word_tokenize
 from nltk.corpus import stopwords
 from sqlalchemy import create_engine
 from nltk.stem import WordNetLemmatizer
@@ -93,7 +92,8 @@ def build_model():
     """
  
     tfidf_vectorizer = TfidfVectorizer(tokenizer=tokenize, strip_accents="unicode", sublinear_tf=True)
-    onehot = OneHotEncoder(drop="first")
+    # onehot = OneHotEncoder(drop="first") # remove as this option is not recognized with the version used by Udacity
+    onehot = OneHotEncoder()
     clmn = ColumnTransformer([("tfidf", tfidf_vectorizer, "message"),("onehot", onehot, ["genre"])], remainder="passthrough")
     mo = MultiOutputClassifier(LogisticRegression(solver="liblinear"))
     pipeline = Pipeline([('clmn', clmn), ('mo', mo)])
@@ -103,7 +103,7 @@ def build_model():
    # - Inverse of regularization strength (smaller value = stronger regularization)
     parameters = [{
         'clmn__tfidf__min_df': [25,50],
-        'mo__estimator__C': [5,1,0.5]
+        'mo__estimator__C': [5,1]
     }]
     cv = model_selection.GridSearchCV(pipeline, parameters)
 
